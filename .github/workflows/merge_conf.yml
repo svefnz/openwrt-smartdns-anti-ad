@@ -30,11 +30,11 @@ jobs:
               echo "Failed to download $PROJECT from $URL"
             fi
           done
-          echo "$MERGED_CONTENT" > merged.conf
+          echo "$MERGED_CONTENT" > anti-ad-smartdns.conf
       - name: Commit and push changes
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add merged.conf
-          git commit -m "Update merged.conf with latest content" || echo "No changes to commit"
+          git add anti-ad-smartdns.conf
+          git commit -m "auto updated" || echo "No changes to commit"
           git push origin main
