@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: GetTime
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S CST')"
       - name: Download and Merge Conf Files
         run: |
           #!/bin/bash
@@ -36,6 +39,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          git checkout --orphan latest_branch
           git add anti-ad-smartdns.conf
-          git commit -m "auto updated" || echo "No changes to commit"
+          git commit -am "${{ steps.date.outputs.date }}"
           git push origin master
