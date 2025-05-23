@@ -1,0 +1,40 @@
+name: Merge & Save
+on:
+  schedule:
+    - cron: '55 12 * * *'  # 每天 UTC 时间 12:55 运行
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download and Merge Conf Files
+        run: |
+          #!/bin/bash
+          CONF_FILES=(
+            "anti-AD|Anti Advertising for smartdns|https://anti-ad.net/anti-ad-for-smartdns.conf"
+            "adrules|AdRules SmartDNS List|https://adrules.top/smart-dns.conf"
+            "neodevhost|neodevhost SmartDNS List|https://raw.githubusercontent.com/neodevpro/neodevhost/master/lite_smartdns.conf"
+          )
+          MERGED_CONTENT=""
+          for CONF in "${CONF_FILES[@]}"; do
+            PROJECT=$(echo "$CONF" | cut -d'|' -f1)
+            DESCRIPTION=$(echo "$CONF" | cut -d'|' -f2)
+            URL=$(echo "$CONF" | cut -d'|' -f3)
+            echo "Downloading $PROJECT from $URL"
+            CONTENT=$(curl -s "$URL")
+            if [ $? -eq 0 ]; then
+              MERGED_CONTENT+="# Source: $PROJECT - $DESCRIPTION\n"
+              MERGED_CONTENT+="$CONTENT\n\n"
+            else
+              echo "Failed to download $PROJECT from $URL"
+            fi
+          done
+          echo "$MERGED_CONTENT" > merged.conf
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add merged.conf
+          git commit -m "Update merged.conf with latest content" || echo "No changes to commit"
+          git push origin main
