@@ -8,7 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
       - name: GetTime
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S CST')"
