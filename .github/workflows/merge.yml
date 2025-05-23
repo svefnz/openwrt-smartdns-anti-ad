@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: GetTime
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S CST')"
@@ -42,4 +42,8 @@ jobs:
           git checkout --orphan latest_branch
           git add anti-ad-smartdns.conf
           git commit -am "${{ steps.date.outputs.date }}"
-          git push origin master
+          git branch -D master
+          git branch -m master
+  
+      - name: Push
+        run: git push -f origin master
