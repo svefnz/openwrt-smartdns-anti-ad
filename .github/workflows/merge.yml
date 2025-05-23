@@ -18,25 +18,18 @@ jobs:
         run: |
           #!/bin/bash
           CONF_FILES=(
-            "anti-AD|Anti Advertising for smartdns|https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-smartdns.conf"
-            "adrules|AdRules SmartDNS List|https://raw.githubusercontent.com/Cats-Team/AdRules/main/smart-dns.conf"
-            "neodevhost|neodevhost SmartDNS List|https://raw.githubusercontent.com/neodevpro/neodevhost/master/smartdns.conf"
+            "anti-AD|https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-smartdns.conf"
+            "adrules|https://raw.githubusercontent.com/Cats-Team/AdRules/main/smart-dns.conf"
+            "neodevhost|https://raw.githubusercontent.com/neodevpro/neodevhost/master/smartdns.conf"
           )
-          MERGED_CONTENT=""
-          for CONF in "${CONF_FILES[@]}"; do
-            PROJECT=$(echo "$CONF" | cut -d'|' -f1)
-            DESCRIPTION=$(echo "$CONF" | cut -d'|' -f2)
-            URL=$(echo "$CONF" | cut -d'|' -f3)
-            echo "Downloading $PROJECT from $URL"
-            CONTENT=$(curl -s "$URL")
-            if [ $? -eq 0 ]; then
-              MERGED_CONTENT+="$(echo -e "# Source: $PROJECT - $DESCRIPTION\n")"
-              MERGED_CONTENT+="$(echo -e "$CONTENT\n\n")"
-            else
-              echo "Failed to download $PROJECT from $URL"
-            fi
+          OUTPUT_FILE="anti-ad-smartdns.conf"
+          for CONF in "${CONF_FILES[@]}"
+          do
+            FILENAME=$(echo "$CONF" | cut -d'|' -f1)
+            URL=$(echo "$CONF" | cut -d'|' -f2)
+            echo "# --- $FILENAME ---" >> "$OUTPUT_FILE"
+            wget -q "$URL" -O - >> "$OUTPUT_FILE"
           done
-          echo "$MERGED_CONTENT" > anti-ad-smartdns.conf
       - name: Commit and push changes
         run: |
           git config --local user.email "actions@github.com"
