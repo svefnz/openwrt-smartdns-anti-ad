@@ -1,5 +1,6 @@
 name: Merge & Save
 on:
+  workflow_dispatch:
   schedule:
     - cron: '55 12 * * *'  # 每天 UTC 时间 12:55 运行
 jobs:
