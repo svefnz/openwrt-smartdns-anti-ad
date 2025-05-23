@@ -18,8 +18,8 @@ jobs:
         run: |
           #!/bin/bash
           CONF_FILES=(
-            "anti-AD|Anti Advertising for smartdns|https://anti-ad.net/anti-ad-for-smartdns.conf"
-            "adrules|AdRules SmartDNS List|https://adrules.top/smart-dns.conf"
+            "anti-AD|Anti Advertising for smartdns|https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-smartdns.conf"
+            "adrules|AdRules SmartDNS List|https://raw.githubusercontent.com/Cats-Team/AdRules/main/smart-dns.conf"
             "neodevhost|neodevhost SmartDNS List|https://raw.githubusercontent.com/neodevpro/neodevhost/master/smartdns.conf"
           )
           MERGED_CONTENT=""
