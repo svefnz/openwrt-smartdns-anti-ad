@@ -30,8 +30,8 @@ jobs:
             echo "Downloading $PROJECT from $URL"
             CONTENT=$(curl -s "$URL")
             if [ $? -eq 0 ]; then
-              MERGED_CONTENT+="# Source: $PROJECT - $DESCRIPTION\n"
-              MERGED_CONTENT+="$CONTENT\n\n"
+              MERGED_CONTENT+="$(echo -e "# Source: $PROJECT - $DESCRIPTION\n")"
+              MERGED_CONTENT+="$(echo -e "$CONTENT\n\n")"
             else
               echo "Failed to download $PROJECT from $URL"
             fi
