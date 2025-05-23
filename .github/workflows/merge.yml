@@ -37,4 +37,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add anti-ad-smartdns.conf
           git commit -m "auto updated" || echo "No changes to commit"
-          git push origin main
+          git push origin master
