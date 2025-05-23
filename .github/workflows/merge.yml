@@ -37,4 +37,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add anti-ad-smartdns.conf
           git commit -am "${{ steps.date.outputs.date }}"
-          git push origin master
+          git push -f origin master
