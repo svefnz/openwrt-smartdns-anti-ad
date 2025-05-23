@@ -18,7 +18,7 @@ jobs:
           CONF_FILES=(
             "anti-AD|Anti Advertising for smartdns|https://anti-ad.net/anti-ad-for-smartdns.conf"
             "adrules|AdRules SmartDNS List|https://adrules.top/smart-dns.conf"
-            "neodevhost|neodevhost SmartDNS List|https://raw.githubusercontent.com/neodevpro/neodevhost/master/lite_smartdns.conf"
+            "neodevhost|neodevhost SmartDNS List|https://raw.githubusercontent.com/neodevpro/neodevhost/master/smartdns.conf"
           )
           MERGED_CONTENT=""
           for CONF in "${CONF_FILES[@]}"; do
