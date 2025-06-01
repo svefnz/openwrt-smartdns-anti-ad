@@ -1,8 +1,8 @@
 name: Merge & Save
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '55 12 * * *'
+  #schedule:
+  #  - cron: '55 12 * * *'
 env:
   TZ: Asia/Shanghai
 jobs:
